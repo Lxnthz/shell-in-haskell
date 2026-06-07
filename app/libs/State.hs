@@ -27,7 +27,7 @@ data ShellState = ShellState
     shellVariables :: M.Map String String,
     jobs :: M.Map Int JobInfo,
     completeSpecs :: M.Map String CompleteSpec,
-    histFile :: Maybe FilePath,
+    histFile :: Maybe FilePath
   } deriving (Show)
 
 type ShellM = StateT ShellState IO
