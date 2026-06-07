@@ -15,11 +15,14 @@ dependencies:
   - process
   - directory
   - filepath
+  - haskeline
 
 executables:
   codecrafters-shell-exe:
     main: Main.hs
-    source-dirs: app
+    source-dirs:
+      - app
+      - app/libs
     ghc-options:
       - -threaded
       - -rtsopts
