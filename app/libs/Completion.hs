@@ -40,7 +40,7 @@ completeCommands :: S.ShellState -> String -> IO [String]
 completeCommands st text = do
   mp <- lookupEnv "PATH"
   let dirs = maybe [] (splitBy ':') mp
-    builtins = filter (L.isPrefixOf text) (S.builtinCommands st)
+      builtins = filter (L.isPrefixOf text) (S.builtinCommands st)
   pathEntries <- fmap concat $ forM dirs $ \d -> do
     ok <- doesDirectoryExist d
     if not ok then pure [] else do
@@ -73,7 +73,7 @@ handleComplete args = do
 
     registerSpec xs = do
       let (flags, envs, cmds) = parseFlags xs [] M.empty []
-        spec = S.CompleteSpec flags envs
+          spec = S.CompleteSpec flags envs
       mapM_ (\cmd -> S.modifyShell $ \s -> s { S.completeSpecs = M.insert cmd spec (S.completeSpecs s) }) cmds
 
     parseFlags [] fs es cs = (reverse fs, es, reverse cs)

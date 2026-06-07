@@ -92,7 +92,7 @@ parseRedirection args = go args (Redirection Nothing Nothing False False [])
         "1>>" -> takeFile "stdout" True rest acc
         "2>" -> takeFile "stderr" False rest acc
         "2>>" -> takeFile "stderr" True rest acc
-        _ -> go rest acc { redirArgs = redirArgs acc ++ [a] }
+        _ -> go rest (acc { redirArgs = redirArgs acc ++ [a] })
 
     takeFile _ _ [] _ = Left "sytax error: expected file after redirection"
     takeFile stream app (fp:xs) acc =
