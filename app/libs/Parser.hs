@@ -33,7 +33,7 @@ parseCommandWithState st input = go input [] [] False False False
           [] -> go [] args ('\\':current) inSq inDq True
           (n:rest) ->
             if inDq
-              then if n 'elem' ['"', '\\', '$', 'n']
+              then if n `elem` ['"', '\\', '$', 'n']
                 then go rest args (translateDQ n : current) inSq inDq True
                 else go cs args ('\\':current) inSq inDq True
               else go rest args (n:current) inSq inDq True
@@ -41,7 +41,7 @@ parseCommandWithState st input = go input [] [] False False False
       | c == '"' && not inSq = go cs args current inSq (not inDq) True
       | c == '$' && not inSq = 
         let (name, rest, matched) = parseVar cs
-          val = if matched then unsafeLookup st name else "$"
+            val = if matched then unsafeLookup st name else "$"
         in go rest args (reverse val ++ current) inSq inDq True
       | isSpace c && not inSq && not inDq =
           if started
@@ -62,7 +62,7 @@ parseVar ('{':xs) =
   let (name, rest) = span isVarChar xs
   in case rest of
     ('}':more) | validName name -> (name, more, True)
-    _ -> ("". '{':xs, False)
+    _ -> ("", '{':xs, False)
 
 parseVar xs =
   let (name, rest) = span isVarChar xs

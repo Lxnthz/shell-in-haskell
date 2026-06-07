@@ -19,7 +19,7 @@ commonPrefix (x:xs) = foldl step x xs
 completePath :: String -> IO [String]
 completePath prefix = do
   let (dir, partial) = splitFileName prefix
-    base = if null dir then "." else init dir
+      base = if null dir then "." else init dir
   ok <- doesDirectoryExist base
   if not ok
     then pure []
