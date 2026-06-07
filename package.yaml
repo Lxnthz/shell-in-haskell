@@ -16,6 +16,8 @@ dependencies:
   - directory
   - filepath
   - haskeline
+  - mtl
+  - containers
 
 executables:
   codecrafters-shell-exe:
