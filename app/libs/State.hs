@@ -10,9 +10,6 @@ data JobInfo = JobInfo
   {
     jobPid :: ProcessID,
     jobCmd :: String,
-
-  runShellM :: ShellState -> ShellM a -> IO (a, ShellState)
-  runShellM st m = runStateT m st
     jobStatus :: JobStatus
   } deriving (Show)
 
@@ -49,7 +46,7 @@ initialShellState = pure $ ShellState
   }
 
 runShellM :: ShellState -> ShellM a -> IO (a, ShellState)
-runShellM = runStateT
+runShellM st m = runStateT m st
 
 getShell :: ShellM ShellState
 getShell = get
